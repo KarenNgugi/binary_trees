@@ -23,9 +23,4 @@ int main(void)
     binary_tree_print(root);
     return (0);
 }
-alex@/tmp/binary_trees$ gcc -Wall -Wextra -Werror -pedantic binary_tree_print.c 0-main.c 0-binary_tree_node.c -o 0-node
-alex@/tmp/binary_trees$ ./0-node
-       .-------(098)-------.
-  .--(012)--.         .--(402)--.
-(006)     (016)     (256)     (512)
-alex@/tmp/binary_trees$
+
