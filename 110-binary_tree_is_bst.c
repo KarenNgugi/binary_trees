@@ -15,7 +15,7 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 		return (0);
 
 	if ((tree->right != NULL) && (tree->right->n < tree->n))
-		return(0);
+		return (0);
 
 	if (!binary_tree_is_bst(tree->left) || !binary_tree_is_bst(tree->right))
 		return (0);
