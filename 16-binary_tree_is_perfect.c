@@ -56,6 +56,12 @@ int exponent(int a, int b)
 {
 	int pow = 1, i = 0;
 
+	if (b < 0)
+		return (-1);
+
+	if (b == 1)
+		return (1);
+
 	for (i = 0; i < b; i++)
 		pow *= a;
 
