@@ -1,26 +1,6 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_size - measures size of binary tree
- * @tree: pointer to root node of tree to be measured
- * Return: size of tree, otherwise 0
- */
-
-size_t binary_tree_size(const binary_tree_t *tree)
-{
-	size_t left_size = 0;
-	size_t right_size = 0;
-
-	if (tree == NULL)
-		return (0);
-
-	left_size = binary_tree_size(tree->left);
-	right_size = binary_tree_size(tree->right);
-
-	return (left_size + right_size + 1);
-}
-
-/**
  * binary_tree_height - measure height of binary tree
  * @tree: pointer to root node of tree
  * Return: 0 if tree is NULL, otherwise return the height
@@ -34,9 +14,6 @@ size_t binary_tree_height(const binary_tree_t *tree)
 	if (tree == NULL)
 		return (0);
 
-	if ((tree->left == NULL) && (tree->right == NULL))
-		return (0);
-
 	left_height = binary_tree_height(tree->left);
 	right_height = binary_tree_height(tree->right);
 
@@ -46,27 +23,21 @@ size_t binary_tree_height(const binary_tree_t *tree)
 		return (right_height + 1);
 }
 
+
 /**
- * exponent - helper function to compute exponent
- * @a: first number
- * @b: second number
- * Return: result of exponentiation
+ * binary_tree_balance - measures balance factor of binary tree
+ * @tree: pointer to root node of tree to be measured
+ * Return: balance factor of tree, otherwise 0
  */
-int exponent(int a, int b)
+
+int binary_tree_balance(const binary_tree_t *tree)
 {
-	int pow = 1, i = 0;
+	if ((tree == NULL) || ((tree->left == NULL) && (tree->right == NULL)))
+		return (0);
 
-	if (b < 0)
-		return (-1);
-
-	if (b == 1)
-		return (1);
-
-	for (i = 0; i < b; i++)
-		pow *= a;
-
-	return (pow);
+	return (binary_tree_height(tree->left) - binary_tree_height(tree->right));
 }
+
 
 
 /**
@@ -77,16 +48,21 @@ int exponent(int a, int b)
 
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	int height, nodes;
+	int left_perfect = 0;
+	int right_perfect = 0;
 
 	if (tree == NULL)
 		return (0);
 
-	height = binary_tree_height(tree);
-	nodes = binary_tree_size(tree);
-
-	if (nodes == exponent(2, height) - 1)
-		return (1);
-	else
+	if (binary_tree_balance(tree) != 0)
 		return (0);
+
+	if ((tree->left == NULL) && (tree->right != NULL))
+	{
+		left_perfect = binary_tree_is_perfect(tree->left);
+		right_perfect = binary_tree_is_perfect(tree->right);
+
+		return (left_perfect && right_perfect);
+	}
+	return (1);
 }
