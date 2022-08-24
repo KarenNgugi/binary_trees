@@ -57,7 +57,7 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 	if (binary_tree_balance(tree) != 0)
 		return (0);
 
-	if ((tree->left == NULL) && (tree->right != NULL))
+	if ((tree->left != NULL) && (tree->right != NULL))
 	{
 		left_perfect = binary_tree_is_perfect(tree->left);
 		right_perfect = binary_tree_is_perfect(tree->right);
