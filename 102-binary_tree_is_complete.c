@@ -1,29 +1,6 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_height - measure height of binary tree
- * @tree: pointer to root node of tree
- * Return: 0 if tree is NULL, otherwise return the height
- */
-
-size_t binary_tree_height(const binary_tree_t *tree)
-{
-	size_t left_height = 0;
-	size_t right_height = 0;
-
-	if (tree == NULL)
-		return (0);
-
-	left_height = binary_tree_height(tree->left);
-	right_height = binary_tree_height(tree->right);
-
-	if (left_height > right_height)
-		return (left_height + 1);
-	else
-		return (right_height + 1);
-}
-
-/**
  * binary_tree_nodes - counts nodes with at least 1 child
  * @tree: pointer to root node of tree to be checked
  * Return: number of nodes, otherwise 0
@@ -44,22 +21,27 @@ size_t binary_tree_nodes(const binary_tree_t *tree)
 }
 
 /**
- * exponent - helper function to calculate exponent of two numbers
- * @a: first number
- * @b: second number
- * Return: result of exponentiation
+ * is_complete - helper function to check if binary tree is complete
+ * @tree: pointer to root node of tree
+ * @index: index
+ * @number_nodes: number of nodes
+ * Return: 1 if tree is complete, otherwise 0
  */
-int exponent(int a, int b)
+int is_complete(const binary_tree_t *tree, int index, int number_nodes)
 {
-	int power = 1;
-	int i = 0;
+	int left_complete = 0;
+	int right_complete = 0;
 
-	for (i = 0; i < b; i++)
-		power *= a;
+	if (tree == NULL)
+		return (1);
 
-	return (power);
+	if (index >= number_nodes)
+		return (0);
+
+	left_complete = is_complete(tree->left, index * 2, number_nodes);
+	right_complete = is_complete(tree->right, index * 2 + 1, number_nodes);
+	return (left_complete && right_complete);
 }
-
 
 /**
  * binary_tree_is_complete - checks if binary tree is complete
@@ -69,17 +51,12 @@ int exponent(int a, int b)
 
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	int height;
 	int nodes;
 
 	if (tree == NULL)
 		return (0);
 
-	height = binary_tree_height(tree);
 	nodes = binary_tree_nodes(tree);
 
-	if (nodes == exponent(2, height) - 1)
-		return (1);
-	else
-		return (0);
+	return (is_complete(tree, 1, nodes + 1));
 }
