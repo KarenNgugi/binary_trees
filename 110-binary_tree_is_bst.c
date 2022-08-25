@@ -4,6 +4,8 @@
 /**
  * is_valid_bst - helper function to check if binary tree is valid BST
  * @tree: pointer to root node of tree to check
+ * @min_range: minimum value to check against
+ * @max_range: maximum value to check against
  * Return: biggest value in the tree
  */
 int is_valid_bst(const binary_tree_t *tree, int min_range, int max_range)
