@@ -37,5 +37,5 @@ int binary_tree_is_bst(const binary_tree_t *tree)
 	if (tree == NULL)
 		return (0);
 
-	return is_valid_bst(tree, INT_MIN, INT_MAX);
+	return (is_valid_bst(tree, INT_MIN, INT_MAX));
 }
